@@ -1,0 +1,19 @@
+{
+  "name": "roomstogo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./src/bin/www"
+  },
+  "dependencies": {
+    "app-root-path": "^2.2.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-http-context": "^1.2.3",
+    "morgan": "~1.9.1",
+    "node-uuid": "^1.4.8",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^3.10.0"
+  }
+}
