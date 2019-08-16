@@ -105,7 +105,7 @@ class PostController {
 
             const onPostDeleteCB = (err, resObj) => {
                 if (err) {
-                    res.status(404).send({ message: "error while removing post", data: [] });
+                    res.status(404).send(err);
                 }
                 res.status(204).send({ message: "post removed successfully", data: [] });
             }

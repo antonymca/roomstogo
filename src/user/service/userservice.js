@@ -2,9 +2,12 @@
 
 const logger = require('../../utils/logger');
 const UserModel = require('../model/usermodel');
+const PostService = require('../../post/service/postservice');
 const uuid = require('node-uuid');
 
-var userModel = new UserModel().getInstance();
+
+const userModel = new UserModel().getInstance();
+const postService = new PostService();
 
 let classInstance = {};
 class UserService {
@@ -17,7 +20,8 @@ class UserService {
         return usrList.find((user, i) => (user.name.toLowerCase() === createObj.username.toLowerCase() || user.email.toLowerCase() === createObj.email.toLowerCase()));
     }
 
-    searchUser(value, type) {
+    searchUser(searchObj) {
+        let type = searchObj.type;
         let userList = userModel.getUserList();
         let currentintent = "";
         switch (type) {
@@ -31,7 +35,7 @@ class UserService {
                 currentintent = "id"
                 break;
         }
-        return userList.find((user, i) => user[currentintent] === value.searchString)
+        return userList.find((user, i) => user[currentintent] === searchObj.searchString)
     }
 
     findUserByIndex(userList,id){
@@ -83,12 +87,27 @@ class UserService {
         return cb(null, userModel.getUserList());
     }
 
+    getpostsByUser(id){
+       return postService.getPostById(id);
+    }
+
     getUserByType(reqObj, cb) {
-        return cb(null, this.searchUser(reqObj, reqObj.type));
+        let finalResponse = {};
+        let allPost =[];
+        let userObject = this.searchUser(reqObj);
+        finalResponse["user"] = userObject;
+        if(userObject){
+        let allPost = postService.getPostByUserId(userObject.id);
+        if(allPost.length === 1){
+            finalResponse["posts"] = [allPost];
+        }else finalResponse["posts"] = allPost;
+        }
+        return cb(null, finalResponse);
     }
 
     deleteUserById(userId, cb){
         this.deleteUsrById(userId);
+        postService.deletePostByUserId(userId);
         return cb(null, "deleted");
     }
 

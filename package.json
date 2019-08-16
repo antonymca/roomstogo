@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./src/bin/www"
+    "start": "node ./src/bin/www",
+    "test": "mocha './src/test/user/user.js' --timeout 10000"
   },
   "dependencies": {
     "app-root-path": "^2.2.1",
+    "async": "^3.1.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "email-validator": "^2.0.4",
@@ -17,5 +19,10 @@
     "node-uuid": "^1.4.8",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^3.10.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.2.0"
   }
 }
