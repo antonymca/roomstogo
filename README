@@ -1,0 +1,13 @@
+Rooms to Go Assessment
+
+Prerequisites:
+
+Node version Used : v10.15.3
+npm  Version Used : 6.10.3
+
+npm install => install all dependencies
+
+npm start => run the app on port 3000
+
+All the API contracts details are shared in postman collection.
+
