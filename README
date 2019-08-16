@@ -13,3 +13,90 @@ All the API contracts details are shared in postman collection.
 
 roomstogo.postman_collection.json file contains all the required sample request to be tested.
 
+USERS:
+
+1. Ability to retrieve user information given any of the unique user properties (userId, username, email)
+   
+    URL : http://localhost:3000/api/v1.0/user/userId?type=id
+    Method : GET
+
+    URL : http://localhost:3000/api/v1.0/user/username?type=name
+    Method : GET
+
+    URL : http://localhost:3000/api/v1.0/user/email?type=email
+    Method : GET
+    
+
+2. Ability to modify and create new users
+
+    URL : http://localhost:3000/api/v1.0/user
+        Method : POST
+        Body : 
+                {
+                "username":"antony23",
+                "email":"b2257@g.com"
+                }
+
+    URL : http://localhost:3000/api/v1.0/user/:userId
+    Method : PUT
+    Body : 
+            {
+            "username":"antony23",
+            "email":"b2257@g.com"
+            }
+
+
+3. Ability to remove a user (this should also remove all posts associated with that user)
+
+        URL : http://localhost:3000/api/v1.0/user/:userId
+            Method : DELETE
+            
+4. Ability to retrieve all users
+
+    URL : http://localhost:3000/api/v1.0/user/
+    Method : GET
+
+
+5. When we retrieve a user we want to retrieve all posts associated with this user. (What are the pros and cons of this?)
+ 
+    I implemented this for API which retrieves user by search term. 
+
+    Pros :      
+    Instead of client calling mulpile API's (Users,post), we reduce hop time by this approach.
+    If the requirement is to show user post on a single page, then this is the best way to provide the details.
+    
+    Cons:
+    We are breaking the rules of lossing coupling.
+    Each service should be independent and with this approach we are coupling 2 resources in single API.
+    Also if the post data is huge then we will have issues, if we are not implementing offset and limit.
+
+
+    POST:
+
+    1. Ability to retreive a post given an id
+    
+    URL : http://localhost:3000/api/v1.0/post/:postId
+    Method : GET
+
+    2. Ability to create and modify a post
+    
+    URL : http://localhost:3000/api/v1.0/post
+    Method : POST
+    Body : 
+            {
+            "title":"www",
+            "content":"sss",
+            "userId":"14ae45d1-c021-11e9-9d40-0bb015ef31cb"
+            }
+
+    3. Ability to delete a post
+
+    URL : http://localhost:3000/api/v1.0/post/:postId
+    Method : DELETE
+     
+    4. Ability to retrieve all posts
+
+     URL : http://localhost:3000/api/v1.0/post
+    Method : GET
+
+
