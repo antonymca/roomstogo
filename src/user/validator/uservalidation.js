@@ -2,52 +2,39 @@
 
 
 const logger = require('../../utils/logger');
+var emailvalidator = require("email-validator");
 
 //const userService = new UserService();
 
 let classInstance = {};
-class userValidator {
+class UserValidator {
 
     constructor() {        
         classInstance = this;
     }
 
-    getAllUsers(req, res) {
+    createUser(reqObj, cb) {
+        let errorBag = [];
         try {
-           
-        }catch(e){
-            logger.error({"transactionId":req.transactionId,"error": err.message});
-            return res.status(500).send({ success: false, message: 'Unexpected error while validating all users request' });
-        }
-    }
+         let userName = reqObj.username;
+         let email = reqObj.email;
+         
+         if(!userName){
+             // need to move to constant file to hold all the messages.
+             errorBag.push({"key":"username","message":"username is mandatory, it cannot be empty"})
+         }
 
-    createUser(req, res) {
-        try {
-          
+         if(!email && !emailvalidator.validate(email)){
+            errorBag.push({"key":"email","message":"email is mandatory, it cannot be empty or invalid"})
+         }
+         return errorBag.length === 0 ? cb(null,true) : cb(errorBag,false);
+
         }catch(e){
-            logger.error({"transactionId":req.transactionId,"error": err.message});
+            logger.error({"transactionId":req.transactionId,"error": e.message});
             return res.send({ success: false, message: 'Unexpected error while validating create user' });
         }
-    }
-
-    updateUser(req, res) {
-        try {
-           
-        }catch(e){
-            logger.error({"transactionId":req.transactionId,"error": err.message});
-            return res.send({ success: false, message: 'Unexpected error while validating update user' });
-        }
-    }
-
-    deleteUser(req, res) {
-        try {
-           
-        }catch(e){
-            logger.error({"transactionId":req.transactionId,"error": err.message});
-            return res.send({ success: false, message: 'Unexpected error while validating delete user' });
-        }
-    }   
+    }    
 
 }
 
-module.exports = userValidator;
+module.exports = UserValidator;

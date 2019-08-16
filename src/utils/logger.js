@@ -91,18 +91,6 @@ logger.stream = {
     },
 };
 
-class Singleton {
 
-    constructor() {
-        if (!Singleton.instance) {
-            Singleton.instance = new logger();
-        }
-    }
-  
-    getInstance() {
-        return Singleton.instance;
-    }
-  
-}
 
-module.exports = Singleton;
+module.exports = logger;

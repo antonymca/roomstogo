@@ -9,9 +9,11 @@ const router = express.Router();
 router.get('/hc', (req, res) => res.status(200).send({'status':'running','transactionId':req.transactionId}));
 
 // mount user routes at /user
+
 router.use('/user', userRoutes);
 
+
 //mount post routes at /post
-//router.use('/post', postRoutes);
+router.use('/post', postRoutes);
 
 module.exports = router;
