@@ -11,3 +11,5 @@ npm start => run the app on port 3000
 
 All the API contracts details are shared in postman collection.
 
+roomstogo.postman_collection.json file contains all the required sample request to be tested.
+
